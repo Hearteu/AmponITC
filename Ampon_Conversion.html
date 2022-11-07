@@ -1,0 +1,78 @@
+<html>
+    <head>
+        <title>Temperature Converter</title>
+        <link rel="text/Stylesheet" href="styles.css"
+        <script src="scripts.js"></script>
+    </head>
+    <body>
+        <h1>Conversion</h1>
+        <h2>Fahrenheit to Celsius</h2>
+            <p>Type a value in the Fahrenheit field to convert the value to Celsius:</p>
+
+            <p>
+            <label>Fahrenheit</label>
+            <input id="inputFahrenheit" type="number" placeholder="Fahrenheit">
+            <button onclick="temperatureConverter(this.value)">Convert</button>
+            </p>
+            <p>Celsius: <span id="outputCelcius"></span></p>
+
+            <script>
+            function temperatureConverter(valNum) {
+            valNum = document.getElementById("inputFahrenheit").value*1;
+            document.getElementById("outputCelcius").innerHTML=(valNum-32)/1.8;
+            }
+            </script>
+
+        <h2>Celsius to Fahrenheit</h2>
+            <p>Type a value in the Celsius field to convert the value to Fahrenheit:</p>
+
+            <p>
+            <label>Celsius</label>
+            <input id="inputCelsius" type="number" placeholder="Celsius">
+            <button onclick="temperatureConverter2(this.value)">Convert</button>
+            </p>
+            <p>Fahrenheit: <span id="outputCelcius2"></span></p>
+
+            <script>
+            function temperatureConverter2(valNum) {
+            valNum = document.getElementById("inputCelsius").value*1;
+            document.getElementById("outputCelcius2").innerHTML=(valNum*1.8)+32;
+            }
+            </script>
+
+        <h2>Meters to Feet</h2>
+            <p>Type a value in the Meters field to convert the value to Feet:</p>
+
+            <p>
+            <label>Meters</label>
+            <input id="inputMeters" type="number" placeholder="Meters">
+            <button onclick="LengthConverter(this.value)">Convert</button>
+            </p>
+            <p>Feet: <span id="outputFeet"></span></p>
+
+            <script>
+            function LengthConverter(valNum) {
+            valNum = document.getElementById("inputMeters").value*1;
+            document.getElementById("outputFeet").innerHTML=valNum*3.2808;
+            }
+            </script>
+
+        <h2>Feet to Meters</h2>
+            <p>Type a value in the Feet field to convert the value to Meters:</p>
+
+            <p>
+            <label>Feet</label>
+            <input id="inputFeet" type="number" placeholder="Feet">
+            <button onclick="LengthConverter2(this.value)">Convert</button>
+            </p>
+            <p>Meters: <span id="outputMeters"></span></p>
+
+            <script>
+            function LengthConverter2(valNum) {
+            valNum = document.getElementById("inputFeet").value*1;
+            document.getElementById("outputMeters").innerHTML=valNum/3.2808;
+            }
+            </script>
+    <a href="index.html">Back to Home Page</a>
+    </body>
+</html>

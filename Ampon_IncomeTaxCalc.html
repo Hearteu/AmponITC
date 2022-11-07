@@ -1,0 +1,57 @@
+ <html>
+    <head>
+        <title>Temperature Converter</title>
+        <link rel="text/Stylesheet" href="styles.css"
+        <script src="scripts.js"></script>
+    </head>
+    <body>
+        <h1>Income Tax Calculator</h1>
+            <p>Type a value in the Taxable Income field to compute the Income Tax.</p>
+
+            <p>
+            <label>Taxable Income</label>
+            <input id="inputTaxableIncome" type="number" placeholder="Taxable Income">
+            <button onclick="incomeTaxCalc(this.value)">Compute</button>
+            </p>
+            <p>Income Tax: <span id="outputIncomeTax"></span></p>
+
+            <script>
+                var a, b, c, d, e;
+                a = 250000
+                b = 400000
+                c = 800000
+                d = 2000000
+                e = 8000000
+                var result = 0
+                function incomeTaxCalc(valNum) {
+                valNum = document.getElementById("inputTaxableIncome").value*1;
+                if (valNum <= a){
+                    document.getElementById("outputIncomeTax").innerHTML= result;
+                }
+                else if (valNum >= a && valNum <= b){
+                    result = (valNum - a)*.20
+                    document.getElementById("outputIncomeTax").innerHTML= result;
+                }
+                else if (valNum >= b && valNum <= c){
+                    result = (valNum - b)*.25 + 30000
+                    document.getElementById("outputIncomeTax").innerHTML= result;
+                }
+                else if (valNum >= c && valNum <= d){
+                    result = (valNum - c)*.30 + 130000
+                    document.getElementById("outputIncomeTax").innerHTML= result;
+                }
+                else if (valNum >= d && valNum <= e){
+                    result = (valNum - d)*.32 + 490000
+                    document.getElementById("outputIncomeTax").innerHTML= result;
+                }
+                else {
+                    result = (valNum - e)*.35 + 2410000
+                    document.getElementById("outputIncomeTax").innerHTML= result;
+                }
+            }
+            </script>
+
+        
+    <a href="index.html">Back to Home Page</a>
+    </body>
+</html>

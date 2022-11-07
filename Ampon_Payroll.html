@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        #cart {
+          font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+        
+        #cart td, #cart th {
+          border: 1px solid #ddd;
+          padding: 8px;
+        }
+        
+        #cart tr:nth-child(even){background-color: #f2f2f2;}
+        #cart tr:nth-child(odd){background-color: #bfddf1;}
+             
+        
+        #cart th {
+          padding-top: 12px;
+          padding-bottom: 12px;
+          text-align: left;
+          background-color: #4CAF50;
+          color: white;
+        }
+    </style>
+</head>
+<body onload="initcart()">
+
+<h1>Payroll Program</h1>
+<br>
+<p>
+<a href="index.html">Back to Home Page</a>
+</p>
+<br>
+
+<p>
+<label for="itemdesc">Employee Name:</label>    
+<input id="itemdesc" name="itemdesc" type="text"></input>
+
+<label for="days">Days Worked:</label>
+<input id="days" name="days" type="number"></input>
+<label for="rate">Daily Rate:</label>
+<input id="rate" name="rate" type="number"></input>
+<label for="amount">Deduction Amount:</label>
+<input id="amount" name="amount" type="number"></input>
+<button onclick="addtocart()">Add to Cart</button>
+</p>
+<p>
+<label for="items">No. of Employees:</label>
+<input id="items" name="items" type="number" readonly></input>
+<button onclick="clearcart()">Clear List</button>
+<!--   <button onclick="showcart()">Show Cart</button> --> 
+<label for="delitem">Delete Item:</label>
+<input id="delitem" name="delitem" type="number" ></input>
+<button onclick="deleteitem()" >Delete</button>  
+</p>
+
+<p id="cart"></p>
+<script>
+
+
+    // Initialize cart      
+    function initcart(){
+        cart=[];
+        document.getElementById("items").value=cart.length;
+        document.getElementById("cart").innerHTML="";
+
+            
+    }
+
+    // Clear Cart
+    function clearcart(){
+        var toclear;
+
+        toclear=confirm("Delete all item(s) from cart ?");
+
+        if (toclear) {
+             initcart();
+        }
+            
+    }
+
+    // Add item to cart
+    function addtocart(){
+         
+         var cartitem = {
+             "item": "1",
+             "rate": 0,
+             "days": 1,
+            "itemamount" : function itemamount(){
+                 return Math.round(this.rate*this.days*100)/100;  
+               }
+            };
+
+          cartitem.item=document.getElementById("itemdesc").value;
+          cartitem.days=document.getElementById("days").value;
+          cartitem.rate=document.getElementById("rate").value;
+          cartitem.amount=document.getElementById("amount").value;
+
+          console.log(cartitem.item);
+          console.log(cartitem.days);
+          console.log(cartitem.rate);
+
+
+           cart.push(cartitem);
+          //cart[cart.length]=cartitem;
+
+          console.log(cart.length);
+          document.getElementById("items").value=cart.length;
+
+          showcart();
+
+    }
+
+    // Compute Amount per Item
+    function computeamount() {
+          var q,p,q;
+          q = document.getElementById("days").value*1;
+          p = document.getElementById("rate").value*1;
+
+          a = Math.round(q*p*100)/100;  // rounds off to 2 decimal places
+
+          console.log(a);
+
+          document.getElementById("amount").value=a;
+        
+    }    
+    
+    // Delete item from chart
+    function deleteitem(){
+        var todelete;
+        var itemno;
+
+        itemno=document.getElementById("delitem").value;
+
+        todelete=confirm("Delete item no. "+itemno+"?");
+
+        if (todelete) {
+
+             cart.splice(itemno-1,1);
+             document.getElementById("items").value=cart.length;
+             showcart();   
+        }
+
+    }
+
+    // Show the contents of the cart
+    function showcart(){
+
+        var i,l,carttext,totalamount,ln;
+        var theader,tbody,tb,tfooter;
+
+    
+        // Generate table header;
+        theader ="<thead>";
+        theader+="<tr>";
+        theader+="<th>No.</th>";
+        theader+='<th style="text-align:left" >Employees</th>';
+        theader+="<th>Days Worked</th>";
+        theader+='<th style="text-align:center">Daily Rate</th>';
+        theader+="<th>Gross Pay</th>";
+        theader+="<th>Deduction Amount</th>";
+        theader+="<th>Net Pay</th>";
+        theader+="</tr>";
+        theader+="</thead>";
+        
+        // Generate Table Body
+        l = cart.length;
+      
+        
+      //  for (i=0,totalamount=0,carttext="",tbody='<tbody id="cart">';i<l;i++){
+        for (i=0,totalamount=0,carttext="",tbody='';i<l;i++){
+            ln=i+1;
+            grossPay = cart[i].itemamount();
+            netPay = grossPay-cart[i].amount; 
+            tbody += "<tr>"
+                +'<td>'+ln+' </td>'
+                +'<td>'+cart[i].item+' </td>'
+                +'<td style="text-align:right">'+cart[i].days+'</td>'
+                +'<td style="text-align:right">'+cart[i].rate+'</td>'
+                +'<td style="text-align:right">'+grossPay+'</td>'
+                +'<td style="text-align:right">'+cart[i].amount+'</td>'
+                +'<td style="text-align:right">'+netPay+'</td>'                
+                +"</tr>";
+                       
+            totalamount+=netPay;
+        
+
+        }
+
+       // tbody += "</tbody>";
+
+        // Generate table footer;
+        tfooter ="<tfoot>";
+        tfooter+="<tr>";
+        tfooter+='<th style="text-align:left">'+cart.length+'</th>';
+        tfooter+='<th style="text-align:left">Total Employees</th>';
+        tfooter+='<th></th>';
+        tfooter+='<th></th>';
+        tfooter+='<th></th>';
+        tfooter+='<th>Total Amount</th>';
+        tfooter+='<th style="text-align:right">'+totalamount+'</th>';
+        tfooter+="</tr>";
+        tfooter+="</tfoot>";
+
+       console.log(theader+tbody+tfooter);
+        document.getElementById("cart").innerHTML=
+           '<table>'+theader+tbody+tfooter+'</table>';
+
+
+    }
+  
+// Global variable
+var cart = []; 
+
+</script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Nth Factorial, Sum and Average</h1>
+<p>
+<label for="n">Input a value for n:</label>
+<input id="n" type="number"></input>
+<button onclick="ShowNumbers()">Show Numbers</button>
+</p>
+<h3 id="ntitle"></h3>
+<p id="nnumbers"></p>
+
+<h3 id="ntitle2"></h3>
+<p id="nnumbers2"></p>
+
+<h3 id="ntitle3"></h3>
+<p id="nnumbers3"></p>
+<script>
+
+function ShowNumbers() {
+  var num1 = document.getElementById("n").value*1;
+  document.getElementById("ntitle").innerHTML= "The factorial of "+num1+" is:";
+  var result = num1;
+    if (num1 == 0 || num1 == 1){
+      result = 1;
+    }
+    while (num1 > 1) { 
+        num1--;
+        result *= num1;
+    }
+    document.getElementById("nnumbers").innerHTML=result;
+  
+  var num2 = document.getElementById("n").value*1;
+  document.getElementById("ntitle2").innerHTML= "The sum of first "+num2+" numbers are:";
+  let sum = 0, i = 1;
+ 
+  do {
+    sum += i;
+    i++;
+  }
+  while(i <= num2);
+   if (num2 == 0){
+    sum = 0;
+  }
+  document.getElementById("nnumbers2").innerHTML=sum;
+
+  var num3 = document.getElementById("n").value*1;
+  document.getElementById("ntitle3").innerHTML= "The average of the first "+num3+" numbers are:";
+  let sum2 = 0;
+  for (let z = 1; z <= num3; z++) {
+    sum2 += z;
+    average = sum2 / num3;
+  }
+  if (num2 == 0){
+    average = 0;
+  }
+  document.getElementById("nnumbers3").innerHTML=average;
+}
+
+
+</script>
+</body>
+
+</html>
